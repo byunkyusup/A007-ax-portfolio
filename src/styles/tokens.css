@@ -7,11 +7,11 @@
   --color-surface-raised: oklch(23% 0.013 265);
   --color-surface-glass: oklch(22% 0.013 265 / 0.55);
 
-  /* ---------- Color · Ink scale (high contrast on dark) ---------- */
-  --color-ink-hi:    oklch(97% 0.006 90);
-  --color-ink-mid:   oklch(80% 0.008 90);
-  --color-ink-lo:    oklch(64% 0.008 265);
-  --color-ink-faint: oklch(50% 0.01 265);
+  /* ---------- Color · Ink scale (high contrast on dark, WCAG AA body) ---------- */
+  --color-ink-hi:    oklch(98% 0.006 90);
+  --color-ink-mid:   oklch(86% 0.012 88);   /* body text — AA on --color-bg */
+  --color-ink-lo:    oklch(74% 0.012 90);   /* labels / meta — raised from 64% */
+  --color-ink-faint: oklch(60% 0.012 265);
 
   /* ---------- Color · Accent (warm gold — the ONE restrained accent) ---------- */
   --color-accent:        oklch(80% 0.13 85);
@@ -34,7 +34,7 @@
   --font-mono: "Inter", ui-monospace, SFMono-Regular, monospace;
 
   /* ---------- Typography · Fluid scale (clamp) ---------- */
-  --text-display: clamp(2.75rem, 1rem + 8.5vw, 7rem);
+  --text-display: clamp(2.6rem, 1.2rem + 6vw, 5.5rem);
   --text-h1:      clamp(2rem, 1.1rem + 4.2vw, 4rem);
   --text-h2:      clamp(1.6rem, 1.1rem + 2.4vw, 2.85rem);
   --text-h3:      clamp(1.2rem, 1rem + 1.1vw, 1.6rem);
@@ -64,7 +64,9 @@
   --space-4: 1rem;     --space-5: 1.5rem;  --space-6: 2rem;
   --space-7: 3rem;     --space-8: 4rem;    --space-9: 6rem;
   --space-10: 8rem;
-  --space-section: clamp(4.5rem, 3rem + 7vw, 11rem);
+  /* deliberate, tighter vertical rhythm — composed, not sparse */
+  --space-section: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
+  --space-section-lg: clamp(4.5rem, 3rem + 5vw, 8rem);
 
   /* ---------- Grid ---------- */
   --grid-max:    1280px;
@@ -80,8 +82,10 @@
 
   /* ---------- Elevation ---------- */
   --shadow-sm: 0 1px 2px oklch(0% 0 0 / 0.4);
-  --shadow-md: 0 16px 40px oklch(0% 0 0 / 0.45);
-  --shadow-glow: 0 0 0 1px var(--color-accent-line), 0 20px 60px oklch(0% 0 0 / 0.5);
+  --shadow-md: 0 18px 48px oklch(0% 0 0 / 0.5);
+  --shadow-glow: 0 0 0 1px var(--color-accent-line), 0 24px 70px oklch(0% 0 0 / 0.55);
+  /* subtle top inner highlight to give surfaces dimension on dark */
+  --inner-top: inset 0 1px 0 0 oklch(100% 0 0 / 0.04);
 
   /* ---------- Motion (compositor-friendly only) ---------- */
   --duration-fast:   160ms;

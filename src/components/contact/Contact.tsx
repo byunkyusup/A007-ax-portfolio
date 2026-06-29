@@ -5,7 +5,7 @@ import './contact.css';
 
 export function Contact() {
   return (
-    <section className="section contact" aria-labelledby="contact-heading" id="contact">
+    <section className="section section--lg contact" aria-labelledby="contact-heading" id="contact">
       <div className="grid contact__grid">
         <Reveal className="contact__inner">
           <p className="kicker contact__kicker">Start the Conversation</p>

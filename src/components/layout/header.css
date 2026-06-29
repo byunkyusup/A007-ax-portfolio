@@ -2,22 +2,37 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  backdrop-filter: blur(14px);
-  background: oklch(13% 0.012 265 / 0.72);
-  border-bottom: 1px solid var(--color-rule);
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard),
+    backdrop-filter var(--duration-normal) var(--ease-standard);
+}
+.site-header--scrolled,
+.site-header--open {
+  background: oklch(13% 0.012 265 / 0.78);
+  backdrop-filter: blur(16px) saturate(120%);
+  border-bottom-color: var(--color-rule);
 }
 
+/* dedicated flex bar — NOT the 12-col .grid (that bug squished the nav) */
 .site-header__inner {
-  block-size: var(--nav-height);
+  display: flex;
   align-items: center;
-  grid-template-columns: auto 1fr auto;
-  gap: var(--space-5);
+  gap: var(--space-6);
+  block-size: var(--nav-height);
+  max-width: var(--grid-max);
+  margin-inline: auto;
+  padding-inline: var(--grid-margin);
 }
 
 .site-header__brand {
   display: flex;
   flex-direction: column;
   line-height: 1.1;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 .site-header__name {
   font-family: var(--font-display);
@@ -33,31 +48,98 @@
   color: var(--color-ink-lo);
 }
 
-.site-header__nav { justify-self: center; }
-.site-header__list { display: flex; gap: var(--space-6); }
+/* center the nav, push brand left / actions right */
+.site-header__nav { margin-inline: auto; }
+.site-header__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(var(--space-5), 2vw, var(--space-7));
+}
 .site-header__link {
-  font-size: var(--text-small);
-  color: var(--color-ink-mid);
   position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  font-size: var(--text-small);
+  font-weight: var(--weight-medium);
+  color: var(--color-ink-mid);
   padding-block: var(--space-2);
   transition: color var(--duration-fast) var(--ease-standard);
 }
 .site-header__link::after {
   content: '';
   position: absolute;
-  left: 0; bottom: 0;
-  width: 100%; height: 1px;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
   background: var(--color-accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--duration-normal) var(--ease-out-expo);
 }
-.site-header__link:hover { color: var(--color-ink-hi); }
-.site-header__link:hover::after { transform: scaleX(1); }
+.site-header__link:hover,
+.site-header__link:focus-visible { color: var(--color-ink-hi); }
+.site-header__link:hover::after,
+.site-header__link:focus-visible::after { transform: scaleX(1); }
 
-.site-header__cta { justify-self: end; }
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+/* hamburger — hidden on desktop */
+.site-header__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  inline-size: 44px;
+  block-size: 44px;
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 0 1px var(--color-rule-strong);
+  transition: box-shadow var(--duration-fast) var(--ease-standard);
+}
+.site-header__toggle:hover { box-shadow: inset 0 0 0 1px var(--color-accent-line); }
+.site-header__toggle-bar {
+  display: block;
+  inline-size: 18px;
+  block-size: 1.5px;
+  margin-inline: auto;
+  background: var(--color-ink-hi);
+  transition: transform var(--duration-fast) var(--ease-out-expo);
+}
+.site-header--open .site-header__toggle-bar:first-child {
+  transform: translateY(3.25px) rotate(45deg);
+}
+.site-header--open .site-header__toggle-bar:last-child {
+  transform: translateY(-3.25px) rotate(-45deg);
+}
+
+/* mobile dropdown panel */
+.site-header__mobile {
+  display: none;
+  padding: var(--space-3) var(--grid-margin) var(--space-6);
+  border-top: 1px solid var(--color-rule);
+}
+.site-header__mobile[hidden] { display: none; }
+.site-header__mobile-list { display: flex; flex-direction: column; }
+.site-header__mobile-link {
+  display: block;
+  padding-block: var(--space-4);
+  font-family: var(--font-display);
+  font-size: var(--text-h3);
+  color: var(--color-ink-hi);
+  border-bottom: 1px solid var(--color-rule);
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+.site-header__mobile-link:hover,
+.site-header__mobile-link:focus-visible { color: var(--color-accent); }
 
 @media (max-width: 860px) {
   .site-header__nav { display: none; }
-  .site-header__inner { grid-template-columns: 1fr auto; }
+  .site-header__cta { display: none; }
+  .site-header__toggle { display: flex; }
+  .site-header--open .site-header__mobile { display: block; }
 }

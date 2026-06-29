@@ -15,9 +15,10 @@ export function Hero() {
         <div className="hero__body">
           <p className="kicker hero__kicker">AI Transformation · Enterprise</p>
           <h1 id="hero-heading" className="display hero__headline">
-            AX 전환,
-            <br />
-            <span className="hero__headline-accent">어디서 막혀 있나요?</span>
+            <span className="hero__headline-line">AX 전환,</span>
+            <span className="hero__headline-line hero__headline-accent">
+              어디서 막혀 있나요?
+            </span>
           </h1>
           <p className="lead hero__lead">
             진단부터 정착까지, 데이터가 외부로 나가지 않는{' '}
@@ -39,14 +40,11 @@ export function Hero() {
             {METRICS.map((metric) => (
               <li key={metric.label} className="hero__metric">
                 <span className="display hero__metric-value">{metric.value}</span>
-                <span className="mono-tag hero__metric-label">{metric.label}</span>
+                <span className="hero__metric-label">{metric.label}</span>
               </li>
             ))}
           </ul>
         </aside>
-      </div>
-      <div className="hero__rule-wrap grid" aria-hidden="true">
-        <hr className="rule hero__rule" />
       </div>
     </section>
   );
