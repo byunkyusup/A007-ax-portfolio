@@ -63,29 +63,19 @@ npm run test:e2e   # Playwright E2E (자동으로 build + preview 후 실행)
 
 `.github/workflows/ci.yml`
 
-- **트리거**: `main` 푸시, 모든 `pull_request`.
-- **`build-and-test` 잡** (PR/푸시 공통, 독립적으로 통과해야 함):
-  `npm ci` → `npm run build` → `npm run test:unit`
+역할이 분리되어 있습니다: **GitHub Actions = 품질 게이트(빌드·테스트)**, **Vercel = 배포**.
+
+- **GitHub Actions** (`.github/workflows/ci.yml`) — 트리거: `main` 푸시 + 모든 `pull_request`.
+  `build-and-test` 잡 하나만 실행: `npm ci` → `npm run build` → `npm run test:unit`
   → `npx playwright install --with-deps chromium` → `npm run test:e2e`.
-- **`deploy` 잡** (`main` 푸시일 때만, `build-and-test` 성공 후):
-  Vercel CLI로 `vercel pull` → `vercel build --prod` → `vercel deploy --prebuilt --prod`.
+- **Vercel 네이티브 Git 연동** — 배포 전담. **`main` 푸시 → 자동 프로덕션 배포**,
+  PR → 자동 프리뷰 배포. GitHub Actions에 별도 deploy 잡이나 `VERCEL_TOKEN`이 필요 없습니다.
 
-### Vercel 배포에 필요한 GitHub Secrets (3개)
+### 자동 배포 1회 설정 (Vercel 대시보드)
 
-배포 잡은 아래 3개 시크릿이 필요합니다(`build-and-test`는 독립적으로 통과).
-GitHub 저장소 → **Settings → Secrets and variables → Actions → New repository secret** 에 추가합니다.
-
-| Secret | 상태 | 설명 / 얻는 곳 |
-|--------|------|---------|
-| `VERCEL_ORG_ID` | ✅ 등록됨 | Vercel 조직/팀 ID (`vercel link` → `.vercel/project.json`의 `orgId`) |
-| `VERCEL_PROJECT_ID` | ✅ 등록됨 | Vercel 프로젝트 ID (`vercel link` → `.vercel/project.json`의 `projectId`) |
-| `VERCEL_TOKEN` | ⏳ **직접 등록 필요** | Vercel → Account Settings → **Tokens** → Create Token |
-
-> `ORG_ID`/`PROJECT_ID`는 `vercel link`로 이미 등록되어 있습니다. CI 자동 배포를 켜려면
-> `VERCEL_TOKEN`만 발급해 추가하면 됩니다. (라이브 URL은 이미 수동 배포로 활성화됨)
-
-> 팁: 프로젝트 루트에서 `npx vercel link` 한 번 실행하면 `.vercel/project.json`에
-> `orgId`/`projectId`가 생성됩니다. (해당 디렉터리는 `.gitignore`에 포함되어 커밋되지 않습니다.)
+Vercel → `a007-ax-portfolio` 프로젝트 → **Settings → Git → Connect Git Repository**
+에서 `byunkyusup/A007-ax-portfolio` 를 연결하고(최초 1회 Vercel GitHub App 승인),
+Production Branch가 `main` 인지 확인하면 끝입니다. 이후 푸시마다 자동 배포됩니다.
 
 `vercel.json`은 Vite SPA용 최소 설정으로, `dist`를 출력하고 모든 경로를 `index.html`로
 리라이트합니다.
