@@ -1,5 +1,12 @@
 # A007 · AX 전환 포트폴리오 (AX Transformation Portfolio)
 
+### 🔗 라이브 데모 — **https://a007-ax-portfolio.vercel.app**
+
+[![Live](https://img.shields.io/badge/Live-a007--ax--portfolio.vercel.app-000?logo=vercel)](https://a007-ax-portfolio.vercel.app)
+[![CI](https://github.com/byunkyusup/A007-ax-portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/byunkyusup/A007-ax-portfolio/actions/workflows/ci.yml)
+
+> GitHub Actions가 `main` 푸시마다 빌드·테스트 후 위 URL로 자동 배포합니다.
+
 AI 전환(AX, AI Transformation)을 추진하는 **엔터프라이즈 의사결정자**를 대상으로 한
 맞춤형 포트폴리오 사이트입니다. 변규섭(byunkyusup)이 진단 → PoC → 정착의 흐름으로
 조직의 AX 전환을 이끌 수 있음을 설득하는 단일 페이지(SPA) 랜딩입니다.
@@ -65,14 +72,17 @@ npm run test:e2e   # Playwright E2E (자동으로 build + preview 후 실행)
 
 ### Vercel 배포에 필요한 GitHub Secrets (3개)
 
-배포 잡은 아래 3개 시크릿이 없으면 실패합니다(`build-and-test`는 독립적으로 통과).
-GitHub 저장소 → **Settings → Secrets and variables → Actions → New repository secret** 에 추가하세요.
+배포 잡은 아래 3개 시크릿이 필요합니다(`build-and-test`는 독립적으로 통과).
+GitHub 저장소 → **Settings → Secrets and variables → Actions → New repository secret** 에 추가합니다.
 
-| Secret | 설명 | 얻는 곳 |
+| Secret | 상태 | 설명 / 얻는 곳 |
 |--------|------|---------|
-| `VERCEL_TOKEN` | Vercel 액세스 토큰 | Vercel → Account Settings → **Tokens** → Create Token |
-| `VERCEL_ORG_ID` | Vercel 조직/팀 ID | 로컬에서 `vercel link` 실행 후 `.vercel/project.json`의 `orgId`, 또는 Team Settings → General |
-| `VERCEL_PROJECT_ID` | Vercel 프로젝트 ID | `vercel link` 후 `.vercel/project.json`의 `projectId`, 또는 Project Settings → General |
+| `VERCEL_ORG_ID` | ✅ 등록됨 | Vercel 조직/팀 ID (`vercel link` → `.vercel/project.json`의 `orgId`) |
+| `VERCEL_PROJECT_ID` | ✅ 등록됨 | Vercel 프로젝트 ID (`vercel link` → `.vercel/project.json`의 `projectId`) |
+| `VERCEL_TOKEN` | ⏳ **직접 등록 필요** | Vercel → Account Settings → **Tokens** → Create Token |
+
+> `ORG_ID`/`PROJECT_ID`는 `vercel link`로 이미 등록되어 있습니다. CI 자동 배포를 켜려면
+> `VERCEL_TOKEN`만 발급해 추가하면 됩니다. (라이브 URL은 이미 수동 배포로 활성화됨)
 
 > 팁: 프로젝트 루트에서 `npx vercel link` 한 번 실행하면 `.vercel/project.json`에
 > `orgId`/`projectId`가 생성됩니다. (해당 디렉터리는 `.gitignore`에 포함되어 커밋되지 않습니다.)
