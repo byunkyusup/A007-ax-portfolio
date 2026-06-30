@@ -78,21 +78,24 @@
 .work-card__story { display: flex; flex-direction: column; gap: var(--space-4); }
 .work-card__row {
   display: grid;
-  grid-template-columns: 4.25rem 1fr;
-  gap: var(--space-4);
+  /* chip sizes to its content (all labels are 2 Hangul chars, so equal width)
+     and a wider gutter gives the body text room to breathe */
+  grid-template-columns: auto 1fr;
+  column-gap: var(--space-5);
   align-items: baseline;
 }
 .work-card__label {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  justify-self: start;
   font-family: var(--font-mono);
   font-size: 0.625rem;
   font-weight: var(--weight-semibold);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--color-ink-lo);
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.55rem;
   border-radius: var(--radius-sm);
   box-shadow: inset 0 0 0 1px var(--color-rule-strong);
 }

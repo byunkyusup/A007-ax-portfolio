@@ -17,6 +17,9 @@ body {
   line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* never fake bold/italic — Korean faces have no slanted form, so faux
+     synthesis would shear Hangul; let the matcher pick a real loaded weight */
+  font-synthesis: none;
   min-height: 100vh;
 }
 

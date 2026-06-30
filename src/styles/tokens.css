@@ -27,11 +27,13 @@
   /* ---------- Color · Semantic ---------- */
   --color-success: oklch(72% 0.14 150);
 
-  /* ---------- Typography · Families (display + body pairing) ---------- */
-  --font-display: "Fraunces", "Apple SD Gothic Neo", "Noto Serif KR", Georgia, serif;
-  --font-body: "Inter", -apple-system, "Apple SD Gothic Neo",
-               "Pretendard Variable", "Noto Sans KR", sans-serif;
-  --font-mono: "Inter", ui-monospace, SFMono-Regular, monospace;
+  /* ---------- Typography · Families (deliberate Latin↔Korean pairing) ----------
+     Latin glyphs resolve to Fraunces/Inter; Korean glyphs fall through to the
+     paired Korean face. Both Korean faces are loaded in index.html. */
+  --font-display: "Fraunces", "Nanum Myeongjo", "Apple SD Gothic Neo", Georgia, serif;
+  --font-body: "Inter", "IBM Plex Sans KR", -apple-system,
+               "Apple SD Gothic Neo", sans-serif;
+  --font-mono: "Inter", "IBM Plex Sans KR", ui-monospace, SFMono-Regular, monospace;
 
   /* ---------- Typography · Fluid scale (clamp) ---------- */
   --text-display: clamp(2.6rem, 1.2rem + 6vw, 5.5rem);
@@ -50,9 +52,11 @@
   --weight-semibold: 600;
   --weight-bold:    700;
 
-  /* ---------- Typography · Metrics ---------- */
-  --tracking-tight:  -0.025em;
-  --tracking-display: -0.035em;
+  /* ---------- Typography · Metrics ----------
+     Headlines mix Korean + Latin in one run, so tracking is softened: tight
+     enough for Fraunces display, gentle enough that Hangul doesn't crowd. */
+  --tracking-tight:  -0.012em;
+  --tracking-display: -0.016em;
   --tracking-normal: 0;
   --tracking-label:  0.22em;
   --leading-tight:   1.04;

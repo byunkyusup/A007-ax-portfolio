@@ -51,10 +51,9 @@
   text-wrap: balance;
 }
 .hero__headline-line { display: block; }
-.hero__headline-accent {
-  color: var(--color-accent);
-  font-style: italic;
-}
+/* gold alone carries the emphasis — this line is Korean and Nanum Myeongjo
+   has no italic, so a slant would only ever render as sheared faux-italic */
+.hero__headline-accent { color: var(--color-accent); }
 
 .hero__lead {
   max-inline-size: 44ch;
