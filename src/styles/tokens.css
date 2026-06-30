@@ -59,8 +59,10 @@
   --tracking-display: -0.016em;
   --tracking-normal: 0;
   --tracking-label:  0.22em;
-  --leading-tight:   1.04;
-  --leading-snug:    1.22;
+  /* Hangul glyphs fill the em box, so 1.04 made multi-line Korean headings
+     stack almost touching — leading is opened up for vertical breathing room */
+  --leading-tight:   1.2;
+  --leading-snug:    1.34;
   --leading-body:    1.72;
 
   /* ---------- Spacing ---------- */
